@@ -1,0 +1,40 @@
+enum RoleCode {
+  Owner
+  Editor
+  Viewer
+}
+
+input AssignTaskInput {
+  userId: Int!
+  taskId: Int!
+  roleCode: RoleCode!
+}
+
+type TaskInfo {
+  taskId: Int!
+  title: String!
+  description: String!
+  priority: Priority!
+  status: String!
+  start: String!
+  end: String!
+}
+
+type UserInfo {
+  userId: Int!
+  name: String!
+  roleCode: RoleCode!
+}
+
+type ResponseData {
+  task: TaskInfo!
+  members: [UserInfo]!
+}
+
+type AssignResponse {
+  data: ResponseData!
+}
+
+type Mutation {
+  assignTask(assignData: AssignTaskInput!): AssignResponse!
+}

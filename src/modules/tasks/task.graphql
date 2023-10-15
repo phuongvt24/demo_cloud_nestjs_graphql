@@ -1,0 +1,28 @@
+enum Priority {
+  High
+  Medium
+  Low
+}
+
+input CreateTaskInput {
+  title: String!
+  description: String!
+  priority: Priority!
+  start: String!
+  end: String!
+}
+
+type TaskInfo {
+  taskId: Int!
+  title: String!
+  priority: Priority!
+  status: String!
+}
+
+type CreateTaskResponse {
+  data: TaskInfo!
+}
+
+type Mutation {
+  createTask(taskData: CreateTaskInput!): CreateTaskResponse
+}

@@ -1,0 +1,41 @@
+input LoginInput {
+  userName: String!
+  password: String!
+}
+
+type Auth {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type User {
+  userId: ID!
+  email: String!
+  userName: String!
+  name: String!
+}
+
+type LoginData {
+  auth: Auth!
+  user: User!
+}
+
+type LoginResponse {
+  data: LoginData
+}
+
+type GetAccessTokenResponse {
+  auth: Auth!
+}
+
+type Mutation {
+  login(userData: LoginInput!): LoginResponse!
+}
+
+type Mutation {
+  getAccessToken(refreshToken: String): GetAccessTokenResponse!
+}
+
+type Query {
+  Users: User
+}

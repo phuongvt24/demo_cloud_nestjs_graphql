@@ -1,0 +1,33 @@
+input RegisterUserInput {
+  userName: String!
+  password: String!
+  name: String!
+  email: String
+}
+
+type UserInfo {
+  userId: Int!
+  name: String
+  email: String
+  userName: String
+}
+
+type CreateUserResponse {
+  data: UserInfo!
+}
+
+type PresignedUrl {
+  url: String!
+}
+
+type PresignedUrlResponse {
+  data: PresignedUrl!
+}
+
+type Mutation {
+  createUser(userData: RegisterUserInput!): CreateUserResponse!
+}
+
+type Query {
+  getAvatarPresignedUrl: PresignedUrlResponse!
+}

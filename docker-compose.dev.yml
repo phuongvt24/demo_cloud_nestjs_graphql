@@ -1,0 +1,49 @@
+version: '3.7'
+
+# This Guideline will show you how to config env
+# https://medium.com/better-programming/using-variables-in-docker-compose-265a604c2006
+
+services:
+  app:
+    env_file: ./.env
+    image: graphql-template-local
+    build:
+      context: .
+      # Just build image `builder`. For detail, please see file `./Dockerfile`
+      target: builder
+    environment:
+      APP_PORT: $APP_PORT
+    ports:
+      - 3001:$APP_PORT
+    volumes:
+      # Share directory `src` to container. This help you can auto reload server if any file in
+      # directory change.
+      - ./src:/builder/app/src/
+      - ./package.json:/builder/app/package.json
+      # Create volume to cache directory module. This useful for help build image fast more.
+      - /builder/app/node_modules/
+      - ./test:/builder/app/test
+      # - ./ormconfig.js:/builder/app/ormconfig.js
+    # Start source with nodemon. For detail, read file package.json.
+    command: yarn start:dev
+    networks:
+      - nw_mysql
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: $RDS_PASSWORD
+      MYSQL_DATABASE: $RDS_DATABASE
+    ports:
+      - 3307:3306
+    networks:
+      - nw_mysql
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+
+networks:
+  nw_mysql:
+    driver: bridge
