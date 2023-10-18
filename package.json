@@ -22,7 +22,8 @@
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:generate": "npm run typeorm migration:generate -- ./src/migration/$MIGRATIONNAME -d ./src/config/mySql.ts",
     "migration:up": "npm run typeorm migration:run -- -d src/config/mySql.ts",
-    "migration:down": "npm run typeorm migration:revert -- -d src/config/mySql.ts"
+    "migration:down": "npm run typeorm migration:revert -- -d src/config/mySql.ts",
+    "start:temp": "yarn migration:up && yarn start:dev"
   },
   "dependencies": {
     "@apollo/server": "^4.7.5",
