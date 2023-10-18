@@ -25,7 +25,7 @@ services:
       - ./test:/builder/app/test
       # - ./ormconfig.js:/builder/app/ormconfig.js
     # Start source with nodemon. For detail, read file package.json.
-    command: yarn start:dev
+    command: yarn start:temp
     networks:
       - nw_mysql
     depends_on:
